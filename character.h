@@ -13,7 +13,7 @@ typedef struct CharacterStruct {
 
 } Character;
 
-void move(int c, Character *player);
+void playerMove(int c, Character *player);
 void attack(int c, Character *player);
 
 #endif
