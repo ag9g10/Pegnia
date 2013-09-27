@@ -51,3 +51,47 @@ Tile **make_room(int x, int y, int w, int h, Tile **other_tiles)
 
     return tiles;
 }
+
+Tile **make_corridor(Tile *start_tile, Tile *end_tile, Tile **other_tiles)
+{
+    start_tile->type = 0;
+    start_tile->c = cMap[start_tile->type];
+
+    int sx = start_tile->x;
+    int sy = start_tile->y;
+    int ex = end_tile->x;
+    int ey = end_tile->y;
+
+    int size = 0;
+    size += sx < ex ? ex - sx : sx - ex;
+    size += sy < ey ? ey - sy : sy - ey;
+
+    int i, j;
+    Tile **tiles = (Tile **) malloc(size * sizeof(Tile *));
+    for (i = 0; i < size; ++i)
+        tiles[i] = (Tile *) malloc(sizeof(Tile));
+
+    int c = 0;
+    int dx = sx < ex ? 1 : -1;
+    int dy = sy < ey ? 1 : -1;
+    for (i = ex; i != sx; i -= dx) {
+        // empty space (actual corridor)
+        Tile *tile = tiles[c++];
+        tile->x = i, tile->y = sy;
+        tile->type = 0;
+        tile->c = cMap[tile->type];
+    }
+
+    for (i = ey; i != sy; i -= dy) {
+        // empty space (actual corridor)
+        Tile *tile = tiles[c++];
+        tile->x = ex, tile->y = i;
+        tile->type = 0;
+        tile->c = cMap[tile->type];
+    }
+
+    end_tile->type = 0;
+    end_tile->c = cMap[end_tile->type];
+
+    return tiles;
+}
