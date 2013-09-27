@@ -4,17 +4,19 @@
 #include <stdlib.h>
 #include <curses.h>
 
-static char cMap[] = {'.', '#'};
+#include "tile.h"
 
-typedef struct TileStruct {
-    int x; // x, y coordinates of the tile
-    int y;
-    char c; // character representation of tile
+typedef struct DungeonStruct {
+    Tile ***tiles; // tiles of the dungeon
 
-    int type; // type of tile (empty: 0, wall: 1, trap: 2, etc.)
-} Tile;
+    int w, h;      // size of the dungeon w X h
+} Dungeon;
 
-Tile **make_room(int x, int y, int w, int h, Tile **other_tiles);
-Tile **make_corridor(Tile *start_tile, Tile *end_tile, Tile **other_tiles);
+Dungeon *dungeon;
+
+void init(int w, int h);
+
+void make_room(int x, int y, int w, int h);
+void make_corridor(int sx, int sy, int ex, int ey);
 
 #endif
