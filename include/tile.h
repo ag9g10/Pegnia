@@ -1,8 +1,6 @@
 #ifndef TILE_GUARD
 #define TILE_GUARD
 
-static char c_map[] = {'.', '#'};
-
 enum types { GROUND, WALL };
 enum properties { VISIBLE = 1 };
 

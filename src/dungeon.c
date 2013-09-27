@@ -1,7 +1,5 @@
 #include "dungeon.h"
 
-#include <stdio.h>
-
 void init(int w, int h)
 {
     dungeon = (Dungeon *) malloc(sizeof(Dungeon));
