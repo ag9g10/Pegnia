@@ -1,4 +1,5 @@
 #include "character.h"
+#include "mob.h"
 
 static void finish(int sig);
 
@@ -16,6 +17,14 @@ int main()
     nonl();
     cbreak();
     noecho();
+    
+    //Monster test begin.
+    Mob *monster;
+    monster = (Mob*) malloc (sizeof(Mob));
+    monster->x = 5;
+    monster->y = 10;
+    monster->symbol = 'U';
+    //Monster test end.
 
     mvaddch(player->x, player->y, '@');
 
@@ -24,6 +33,7 @@ int main()
         int c = getch();
         clear();
         playerMove(c, player);
+        mobMove(monster);
     }
     finish(0);
 }

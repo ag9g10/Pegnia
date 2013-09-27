@@ -14,6 +14,6 @@ typedef struct CharacterStruct {
 } Character;
 
 void playerMove(int c, Character *player);
-void attack(int c, Character *player);
+void attack(int c, Character *player); //Add damage capabiity.
 
 #endif
