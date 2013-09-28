@@ -2,10 +2,12 @@
 
 void init(Dungeon *dungeon, int w, int h)
 {
-    dungeon->w = w, dungeon->h = h;
-    free(dungeon->tiles);
+    // free previous tiles of the dungeon
+    free_tiles(dungeon);
 
+    // reallocate enough space
     int i, j;
+    dungeon->w = w, dungeon->h = h;
     dungeon->tiles = (Tile ***) malloc(w * sizeof(Tile **));
     for (i = 0; i < w; ++i) {
         dungeon->tiles[i] = (Tile **) malloc(h * sizeof(Tile *));
@@ -75,4 +77,23 @@ void set_visible(Dungeon *dungeon, int x, int y)
 void set_passable(Dungeon *dungeon, int x, int y)
 {
     dungeon->tiles[x][y]->properties |= PASSABLE;
+}
+
+void free_tiles(Dungeon *dungeon)
+{
+    int i, j;
+    int w = dungeon->w, h = dungeon->h;
+    for (i = 0; i < w; ++i) {
+        for (j = 0; j < h; ++j) {
+            free(dungeon->tiles[i][j]);
+        }
+        free(dungeon->tiles[i]);
+    }
+    free(dungeon->tiles);
+}
+
+void free_dungeon(Dungeon *dungeon)
+{
+    free_tiles(dungeon);
+    free(dungeon);
 }
