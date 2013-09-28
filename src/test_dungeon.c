@@ -3,11 +3,20 @@
 
 #include <signal.h>
 
+#include <character.h>
+#include <mob.h>
+
 static void finish(int sig);
 void draw_dungeon();
 
 int main()
 {
+    //Player test
+    Character *player;
+    player = (Character*) malloc (sizeof (Character));
+    player->x = 2;
+    player->y = 2;
+
     signal(SIGINT, finish);
 
     initscr();
@@ -16,10 +25,25 @@ int main()
     cbreak();
     noecho();
 
-    init(20, 20);
-    make_room(1, 1, 10, 5);
-    make_room(10, 10, 5, 5);
-    draw_dungeon(20, 20);
+    //Monster test
+
+    //Dungeon test
+    Dungeon *dungeon;
+    dungeon = (Dungeon *) malloc (sizeof (Dungeon));
+    init(dungeon, 20, 20);
+    make_room(dungeon,1, 1, 10, 5);
+    make_room(dungeon,10, 10, 5, 5);
+    draw_dungeon(dungeon, 20, 20);
+
+    mvaddch(player->x, player->y, '@');
+
+    for (;;) {
+    
+        int c = getch();
+        clear();
+        playerMove(c, player, dungeon);
+        //mobMove(monster, dungeon);
+    }
 
     getch();
     finish(0);
@@ -27,7 +51,7 @@ int main()
     return 0;
 }
 
-void draw_dungeon()
+void draw_dungeon(Dungeon *dungeon)
 {
     int i, j;
 

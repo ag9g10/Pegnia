@@ -3,6 +3,7 @@
 
 static void finish(int sig);
 
+/*
 int main() 
 {
 
@@ -37,25 +38,26 @@ int main()
     }
     finish(0);
 }
+*/
 
 void playerMove(int c, Character *player, Dungeon *dungeon)
 {
     switch(c)
     {
         case KEY_LEFT:
-            if (dungeon->tiles[player->x - 1][player->y]->properties & PASSABLE != 0)
+            if ((dungeon->tiles[player->x - 1][player->y]->properties & PASSABLE) != 0)
                 mvaddch(player->y, --player->x, '@');
             break;
         case KEY_RIGHT:
-            if (dungeon->tiles[player->x + 1][player->y]->properties & PASSABLE != 0)
+            if ((dungeon->tiles[player->x + 1][player->y]->properties & PASSABLE) != 0)
                 mvaddch(player->y, ++player->x, '@');
             break;
         case KEY_UP:
-            if (dungeon->tiles[player->x][player->y - 1]->properties & PASSABLE != 0)
+            if ((dungeon->tiles[player->x][player->y - 1]->properties & PASSABLE) != 0)
                 mvaddch(--player->y, player->x, '@');
             break;
         case KEY_DOWN:
-            if (dungeon->tiles[player->x][player->y + 1]->properties & PASSABLE != 0)
+            if ((dungeon->tiles[player->x][player->y + 1]->properties & PASSABLE) != 0)
                 mvaddch(++player->y, player->x, '@');
             break;
     }
