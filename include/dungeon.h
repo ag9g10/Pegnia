@@ -22,4 +22,8 @@ void generate(Dungeon *dungeon);
 void set_visible(Dungeon *dungeon, int x, int y);
 void set_passable(Dungeon *dungeon, int x, int y);
 
+// memory functions
+void free_tiles(Dungeon *dungeon);
+void free_dungeon(Dungeon *dungeon);
+
 #endif
