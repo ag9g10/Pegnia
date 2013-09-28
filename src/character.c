@@ -1,6 +1,9 @@
 #include "character.h"
 #include "mob.h"
 
+#include <unistd.h>
+#include <sys.ioctl.h>
+
 static void finish(int sig);
 
 int main() 
@@ -25,6 +28,10 @@ int main()
     monster->y = 10;
     monster->symbol = 'U';
     //Monster test end.
+    
+    //Code to measure terminal window size.
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
     mvaddch(player->x, player->y, '@');
 
@@ -32,13 +39,13 @@ int main()
     
         int c = getch();
         clear();
-        playerMove(c, player);
+        playerMove(c, player, w);
         mobMove(monster);
     }
     finish(0);
 }
 
-void playerMove(int c, Character *player)
+void playerMove(int c, Character *player, struct winsize w)
 {
     switch(c)
     {
@@ -47,7 +54,7 @@ void playerMove(int c, Character *player)
                 mvaddch(player->y, --player->x, '@');
             break;
         case KEY_RIGHT:
-            if (player->x < 100)
+            if (player->x < w.ws_col)
                 mvaddch(player->y, ++player->x, '@');
             break;
         case KEY_UP:
@@ -55,7 +62,7 @@ void playerMove(int c, Character *player)
                 mvaddch(--player->y, player->x, '@');
             break;
         case KEY_DOWN:
-            if (player->y < 100)
+            if (player->y < w.ws_row)
                 mvaddch(++player->y, player->x, '@');
             break;
     }
