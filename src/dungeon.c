@@ -1,10 +1,9 @@
 #include "dungeon.h"
 
-void init(int w, int h)
+void init(Dungeon *dungeon, int w, int h)
 {
-    dungeon = (Dungeon *) malloc(sizeof(Dungeon));
-
     dungeon->w = w, dungeon->h = h;
+    free(dungeon->tiles);
 
     int i, j;
     dungeon->tiles = (Tile ***) malloc(w * sizeof(Tile **));
@@ -17,7 +16,7 @@ void init(int w, int h)
     }
 }
 
-void make_room(int y, int x, int w, int h)
+void make_room(Dungeon *dungeon, int y, int x, int w, int h)
 {
     int i, j;
     // check if room has space
@@ -34,36 +33,40 @@ void make_room(int y, int x, int w, int h)
         for (j = y; j < y + h; ++j) {
             t = dungeon->tiles[i][j];
             t->type = GROUND;
-            t->properties |= 1;
+            set_visible(dungeon, i, j);
         }
-    }
-
-    // make the room walls visible
-    for (i = x - 1; i <= x + w; ++i) {
-        t = dungeon->tiles[i][y - 1];
-        t->properties |= 1;
-        t = dungeon->tiles[i][y + h];
-        t->properties |= 1;
-    }
-    for (i = y - 1; i <= y + h; ++i) {
-        t = dungeon->tiles[x - 1][i];
-        t->properties |= 1;
-        t = dungeon->tiles[x + w][i];
-        t->properties |= 1;
     }
 }
 
-void make_corridor(int sx, int sy, int ex, int ey)
+void make_corridor(Dungeon *dungeon, int sx, int sy, int len, int dir)
 {
-    // TODO: make this work
     if (dungeon->tiles[sx][sy]->type != WALL)
         return;
-    if (dungeon->tiles[ex][ey]->type != WALL)
-        return;
 
-    dungeon->tiles[sx][sy]->type = GROUND;
-    dungeon->tiles[ex][ey]->type = GROUND;
+    int dx[] = {1, 0, -1, 0, 1, 1, -1, -1};
+    int dy[] = {0, 1, 0, -1, 1, 1, -1, -1};
 
-    int dx[] = {1, 0, -1, 0};
-    int dy[] = {0, 1, 0, -1};
+    int i = sx, j = sy;
+    int k;
+    for (k = 0; k < len; ++k, i += dx[dir], j += dy[dir]) {
+        if (dungeon->tiles[i][j]->type != WALL)
+            return;
+    }
+
+    i = sx, j = sy;
+    for (k = 0; k < len; ++k, i += dx[dir], j += dy[dir]) {
+        dungeon->tiles[i][j]->type = GROUND;
+        set_visible(dungeon, i, j);
+    }
+}
+
+void set_visible(Dungeon *dungeon, int x, int y)
+{
+    int dx[] = {0, 1, 0, -1, 0, 1, 1, -1, -1};
+    int dy[] = {0, 0, 1, 0, -1, 1, -1, 1, -1};
+
+    int i = 0;
+    for (i = 0; i < 9; ++i) {
+        dungeon->tiles[x + dx[i]][y + dy[i]]->properties |= VISIBLE;
+    }
 }
