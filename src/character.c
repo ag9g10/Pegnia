@@ -10,25 +10,20 @@ void playerMove(int c, Character *player, Dungeon *dungeon)
     switch(c)
     {
         case KEY_LEFT:
-            if (is_passable(dungeon, x - 1, y)
+            if (is_passable(dungeon, x - 1, y))
                 mvaddch(y, --x, '@');
             break;
         case KEY_RIGHT:
-            if (is_passable(dungeon, x + 1, y)
+            if (is_passable(dungeon, x + 1, y))
                 mvaddch(y, ++x, '@');
             break;
         case KEY_UP:
-            if (is_passable(dungeon, x, y - 1) 
+            if (is_passable(dungeon, x, y - 1))
                 mvaddch(--y, x, '@');
             break;
         case KEY_DOWN:
-            if (is_passable(dungeon, x, y + 1)
+            if (is_passable(dungeon, x, y + 1))
                 mvaddch(++y, x, '@');
             break;
     }
-}
-
-static void finish(int sig) {
-    endwin();
-    exit(0);
 }

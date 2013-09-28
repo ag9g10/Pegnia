@@ -33,7 +33,7 @@ int main()
     init(dungeon, 20, 20);
     make_room(dungeon,1, 1, 10, 5);
     make_room(dungeon,10, 10, 5, 5);
-    draw_dungeon(dungeon, 20, 20);
+    draw_dungeon(dungeon);
 
     mvaddch(player->x, player->y, '@');
 

@@ -5,3 +5,5 @@
 #include <dungeon.h>
 
 int is_passable(Dungeon *dungeon, int x, int y);
+
+#endif
