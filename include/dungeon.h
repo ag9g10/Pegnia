@@ -5,6 +5,9 @@
 
 #include "tile.h"
 
+static const int dx[] = {1, 0, -1, 0, 1, 1, -1, -1};
+static const int dy[] = {0, 1, 0, -1, 1, -1, 1, -1};
+
 typedef struct DungeonStruct {
     Tile ***tiles; // tiles of the dungeon
 
@@ -13,10 +16,8 @@ typedef struct DungeonStruct {
 
 void init(Dungeon *dungeon, int w, int h);
 
-void make_room(Dungeon *dungeon, int x, int y, int w, int h);
-void make_corridor(Dungeon *dungeon, int sx, int sy, int len, int dir);
-
-void generate(Dungeon *dungeon);
+int make_room(Dungeon *dungeon, int x, int y, int w, int h, int dir);
+int make_corridor(Dungeon *dungeon, int sx, int sy, int len, int dir);
 
 // utility functions
 void set_visible(Dungeon *dungeon, int x, int y);

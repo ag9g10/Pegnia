@@ -3,14 +3,14 @@ ODIR=obj
 LDIR=../lib
 
 CC=gcc
-CFLAGS=-Wall -O2 -I$(IDIR)
+CFLAGS=-g -Wall -O2 -I$(IDIR)
 
 LIBS=-lncurses -lm
 
-_DEPS=dungeon.h tile.h character.h mob.h utils.h
+_DEPS=dungeon.h tile.h character.h mob.h generator.h utils.h mt19937ar.h p_math.h
 DEPS=$(patsubst %,$(IDIR)/%, $(_DEPS))
 
-_OBJ=dungeon.o tile.o character.o mob.o utils.o test_dungeon.o
+_OBJ=dungeon.o tile.o character.o mob.o generator.o utils.o mt19937ar.o p_math.o test_dungeon.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)

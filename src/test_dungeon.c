@@ -1,4 +1,5 @@
 #include "dungeon.h"
+#include "generator.h"
 #include "tile.h"
 
 #include <signal.h>
@@ -30,17 +31,17 @@ int main()
     //Dungeon test
     Dungeon *dungeon;
     dungeon = (Dungeon *) malloc (sizeof (Dungeon));
-    init(dungeon, 20, 20);
-    make_room(dungeon,1, 1, 10, 5);
-    make_room(dungeon,10, 10, 5, 5);
+    init(dungeon, 90, 25);
+    generate(dungeon);
     draw_dungeon(dungeon);
 
     mvaddch(player->x, player->y, '@');
 
     for (;;) {
-    
+
         int c = getch();
         clear();
+        draw_dungeon(dungeon);
         playerMove(c, player, dungeon);
         //mobMove(monster, dungeon);
     }
