@@ -4,7 +4,7 @@
  * Needs wall recognition.
  */
 
-void mobMove(Mob *monster)
+void mobMove(Mob *monster, Dungeon *dungeon)
 {
     int direction; // 0 - left, 1 - right
         if (direction == 0) {

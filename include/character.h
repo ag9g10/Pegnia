@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <curses.h>
 #include <signal.h>
+#include <dungeon.h>
 
 typedef struct CharacterStruct {
     int x; //Coordinates of the character.
@@ -13,7 +14,7 @@ typedef struct CharacterStruct {
 
 } Character;
 
-void playerMove(int c, Character *player);
-void attack(int c, Character *player); //Add damage capabiity.
+void playerMove(int c, Character *player, Dungeon *dungeon);
+void attack(int c, Character *player, Dungeon *dungeon); //Add damage capabiity.
 
 #endif

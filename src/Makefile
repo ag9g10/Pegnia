@@ -16,7 +16,7 @@ OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-all: test_char
+all: test
 
 test: $(OBJ)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBS)

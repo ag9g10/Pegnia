@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <curses.h>
 #include <signal.h>
+#include <dungeon.h>
 
 typedef struct MobStruct {
     int x; //Coordinates of the mob.
@@ -12,7 +13,7 @@ typedef struct MobStruct {
     char symbol;
 } Mob;
 
-void mobMove(Mob *monster);
-void mobAttack(int c, Mob *monster); //Add damage capability.
+void mobMove(Mob *monster, Dungeon *dungeon);
+void mobAttack(Mob *monster, Dungeon *dungeon); //Add damage capability.
 
 #endif
