@@ -37,8 +37,11 @@ void make_random_room(Dungeon *dungeon, int x, int y)
     int dir = rand_int(4, 0);
 
     // make the (x, y) tile a GROUND tile
-    if (make_room(dungeon, x + dx[dir], y + dy[dir], room_w, room_h, dir))
+    if (make_room(dungeon, x + dx[dir], y + dy[dir], room_w, room_h, dir)) {
         dungeon->tiles[x][y]->type = GROUND;
+        set_visible(dungeon, x, y);
+        set_passable(dungeon, x, y);
+    }
 }
 
 void make_random_corridor(Dungeon *dungeon, int x, int y)
@@ -50,8 +53,11 @@ void make_random_corridor(Dungeon *dungeon, int x, int y)
     int dir = rand_int(4, 0);
 
     // make the (x, y) tile a GROUND tile
-    if(make_corridor(dungeon, x + dx[dir], y + dy[dir], len, dir))
+    if(make_corridor(dungeon, x + dx[dir], y + dy[dir], len, dir)) {
         dungeon->tiles[x][y]->type = GROUND;
+        set_visible(dungeon, x, y);
+        set_passable(dungeon, x, y);
+    }
 }
 
 // utility functions

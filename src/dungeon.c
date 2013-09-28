@@ -95,6 +95,7 @@ int make_corridor(Dungeon *dungeon, int sx, int sy, int len, int dir)
     for (k = 0; k < len; ++k, i += dx[dir], j += dy[dir]) {
         dungeon->tiles[i][j]->type = GROUND;
         set_visible(dungeon, i, j);
+        set_passable(dungeon, i, j);
     }
 
     return 1;
