@@ -7,10 +7,10 @@ CFLAGS=-Wall -O2 -I$(IDIR)
 
 LIBS=-lncurses -lm
 
-_DEPS=dungeon.h tile.h character.h mob.h
+_DEPS=dungeon.h tile.h character.h mob.h utils.h
 DEPS=$(patsubst %,$(IDIR)/%, $(_DEPS))
 
-_OBJ=dungeon.o tile.o character.o mob.o test_dungeon.o
+_OBJ=dungeon.o tile.o character.o mob.o utils.o test_dungeon.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
