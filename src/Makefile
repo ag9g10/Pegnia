@@ -7,18 +7,18 @@ CFLAGS=-Wall -O2 -I$(IDIR)
 
 LIBS=-lncurses -lm
 
-_DEPS=dungeon.h tile.h
+_DEPS=dungeon.h tile.h character.h mob.h
 DEPS=$(patsubst %,$(IDIR)/%, $(_DEPS))
 
-_OBJ=dungeon.o test_dungeon.o tile.o
+_OBJ=dungeon.o tile.o character.o mob.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-all: test_dungeon
+all: test_char
 
-test_dungeon: $(OBJ)
+test: $(OBJ)
 	$(CC) $^ -o $@ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
