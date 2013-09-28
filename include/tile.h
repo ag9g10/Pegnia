@@ -2,7 +2,9 @@
 #define TILE_GUARD
 
 enum types { GROUND, WALL };
-enum properties { VISIBLE = 1 };
+
+static const int VISIBLE = 1;
+static const int PASSABLE = 2;
 
 typedef struct TileStruct {
     unsigned int properties; // treat as bitset with properties

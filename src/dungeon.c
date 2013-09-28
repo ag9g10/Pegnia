@@ -34,6 +34,7 @@ void make_room(Dungeon *dungeon, int y, int x, int w, int h)
             t = dungeon->tiles[i][j];
             t->type = GROUND;
             set_visible(dungeon, i, j);
+            set_passable(dungeon, i, j);
         }
     }
 }
@@ -69,4 +70,9 @@ void set_visible(Dungeon *dungeon, int x, int y)
     for (i = 0; i < 9; ++i) {
         dungeon->tiles[x + dx[i]][y + dy[i]]->properties |= VISIBLE;
     }
+}
+
+void set_passable(Dungeon *dungeon, int x, int y)
+{
+    dungeon->tiles[x][y]->properties |= PASSABLE;
 }

@@ -20,5 +20,6 @@ void generate(Dungeon *dungeon);
 
 // utility functions
 void set_visible(Dungeon *dungeon, int x, int y);
+void set_passable(Dungeon *dungeon, int x, int y);
 
 #endif
