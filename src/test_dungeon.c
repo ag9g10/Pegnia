@@ -41,6 +41,7 @@ int main()
     
         int c = getch();
         clear();
+        draw_dungeon(dungeon);
         playerMove(c, player, dungeon);
         //mobMove(monster, dungeon);
     }
