@@ -89,7 +89,8 @@ void free_tiles(Dungeon *dungeon)
         }
         free(dungeon->tiles[i]);
     }
-    free(dungeon->tiles);
+    if (w != 0 || h != 0)
+        free(dungeon->tiles);
 }
 
 void free_dungeon(Dungeon *dungeon)
