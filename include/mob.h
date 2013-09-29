@@ -1,10 +1,11 @@
 #ifndef MOB_GUARD
 #define MOB_GUARD
 
-#include <stdlib.h>
 #include <curses.h>
-#include <signal.h>
-#include <dungeon.h>
+
+#include "character.h"
+#include "dungeon.h"
+#include "utils.h"
 
 typedef struct MobStruct {
     int x; //Coordinates of the mob.
@@ -13,7 +14,9 @@ typedef struct MobStruct {
     char symbol;
 } Mob;
 
-void mobMove(Mob *monster, Dungeon *dungeon);
+void mobMove(Mob *monster, Dungeon *dungeon, int x, int y);
 void mobAttack(Mob *monster, Dungeon *dungeon); //Add damage capability.
+
+void next_move(Mob *monster, Character *player, Dungeon *dungeon);
 
 #endif

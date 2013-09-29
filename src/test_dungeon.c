@@ -27,6 +27,11 @@ int main()
     noecho();
 
     //Monster test
+    Mob *monster;
+    monster = (Mob *) malloc (sizeof (Mob));
+    monster->x = 55;
+    monster->y = 13;
+    monster->symbol = 'M';
 
     //Dungeon test
     Dungeon *dungeon;
@@ -35,6 +40,7 @@ int main()
     generate(dungeon);
     draw_dungeon(dungeon);
 
+    mvaddch(monster->y, monster->x, 'M');
     mvaddch(player->x, player->y, '@');
 
     for (;;) {
@@ -43,7 +49,7 @@ int main()
         clear();
         draw_dungeon(dungeon);
         playerMove(c, player, dungeon);
-        //mobMove(monster, dungeon);
+        next_move(monster, player, dungeon);
     }
 
     getch();

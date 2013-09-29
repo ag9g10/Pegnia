@@ -6,4 +6,8 @@
 
 int is_passable(Dungeon *dungeon, int x, int y);
 
+typedef struct PairStruct {
+    int x, y;
+} Pair;
+
 #endif

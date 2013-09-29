@@ -1,29 +1,21 @@
 #include "mob.h"
 
-/* A mob will go left until it hits a wall, and then right.
- * Needs wall recognition.
- */
+//Move monster to position (x,y)
 
-void mobMove(Mob *monster, Dungeon *dungeon)
+void mobMove(Mob *monster, Dungeon *dungeon, int x, int y)
 {
-    int direction; // 0 - left, 1 - right
-    if (direction == 0) {
-        if (monster->x > 0) {
-            mvaddch(monster->y, --monster->x, monster->symbol);
-        }
-        else {
-            direction = 1;
-            mvaddch(monster->y, ++monster->x, monster->symbol);
-        }
-    }
-    else {
-        if (monster->x < 100) {
-            mvaddch(monster->y, ++monster->x, monster->symbol);
-        }
-        else {
-            direction = 0;
-            mvaddch(monster->y, --monster->x, monster->symbol);
-        }
-    }
+    monster->x = x;
+    monster->y = y;
+
+    mvaddch(y, x, monster->symbol);
 }
 
+void next_move(Mob *monster, Character *player, Dungeon *dungeon) {
+
+    int x = monster->x;
+    int y = monster->y;
+
+    if (is_passable(dungeon, x - 1, y) != 0)
+        x--;
+    mobMove(monster, dungeon, x, y);
+}
