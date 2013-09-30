@@ -10,18 +10,18 @@ void generate(Dungeon *dungeon)
     make_room(dungeon, w / 2 - 2, h / 2 - 2, 5, 5, 0);
 
     int i;
-    for (i = 0; i < 5 * w * h; ++i) {
+    for (i = 0; i < 4 * w * h; ++i) {
         int x = rand_int(w, 0);
         int y = rand_int(h, 0);
 
         if (!is_near_empty(dungeon, x, y))
             continue;
 
-        int p_type = rand_int(2, 0);
+        int p_type = rand_int(4, 0);
         if (!p_type) {
-            make_random_room(dungeon, x, y);
-        } else {
             make_random_corridor(dungeon, x, y);
+        } else {
+            make_random_room(dungeon, x, y);
         }
     }
 }
@@ -49,7 +49,8 @@ void make_random_corridor(Dungeon *dungeon, int x, int y)
     int w = dungeon->w;
     int h = dungeon->h;
 
-    int len = rand_int(min(w / 2, h / 2), 3);
+    // corridors have minimum length of 4
+    int len = rand_int(min(w / 2, h / 2), 4);
     int dir = rand_int(4, 0);
 
     // make the (x, y) tile a GROUND tile

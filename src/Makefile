@@ -3,7 +3,7 @@ ODIR=obj
 LDIR=../lib
 
 CC=gcc
-CFLAGS=-g -Wall -O2 -I$(IDIR)
+CFLAGS=-g -O2 -Wall -I$(IDIR)
 
 LIBS=-lncurses -lm
 
