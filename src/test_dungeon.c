@@ -32,6 +32,7 @@ int main()
     monster->x = 55;
     monster->y = 13;
     monster->symbol = 'M';
+    monster->player = player;
 
     //Dungeon test
     Dungeon *dungeon;
@@ -49,7 +50,7 @@ int main()
         clear();
         draw_dungeon(dungeon);
         playerMove(c, player, dungeon);
-        next_move(monster, player, dungeon);
+        next_move(monster, dungeon);
     }
 
     getch();
