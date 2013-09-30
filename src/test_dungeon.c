@@ -15,8 +15,8 @@ int main()
     //Player test
     Character *player;
     player = (Character*) malloc (sizeof (Character));
-    player->x = 2;
-    player->y = 2;
+    player->x = 11;
+    player->y = 7;
 
     signal(SIGINT, finish);
 
@@ -42,7 +42,7 @@ int main()
     draw_dungeon(dungeon);
 
     mvaddch(monster->y, monster->x, 'M');
-    mvaddch(player->x, player->y, '@');
+    mvaddch(player->y, player->x, '@');
 
     for (;;) {
 
@@ -53,7 +53,6 @@ int main()
         next_move(monster, dungeon);
     }
 
-    getch();
     finish(0);
 
     return 0;

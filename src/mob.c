@@ -11,12 +11,13 @@ static int make_pair(int x, int y);
 static int get_x(int pair);
 static int get_y(int pair);
 
+// we don't want the compiler optimising these out
 int *queue;
 int head;
 int tail;
 
 //Move monster to position (x,y)
-void mobMove(Mob *monster, Dungeon *dungeon, int x, int y)
+void mob_move(Mob *monster, Dungeon *dungeon, int x, int y)
 {
     monster->x = x;
     monster->y = y;
@@ -25,7 +26,7 @@ void mobMove(Mob *monster, Dungeon *dungeon, int x, int y)
 }
 
 //Move the mob a step.
-void next_move(Mob *monster, Dungeon *dungeon) 
+void next_move(Mob *monster, Dungeon *dungeon)
 {
     int i, j;
     int w = dungeon->w;
@@ -52,7 +53,7 @@ void next_move(Mob *monster, Dungeon *dungeon)
     //The following 10 bits will be for the y-coordinates.
     int x = monster->x;
     int y = monster->y;
-    previous[x][y] = FLAG; 
+    previous[x][y] = FLAG;
 
     enqueue(make_pair(x, y));
     while (!is_empty()) {
@@ -82,22 +83,26 @@ void next_move(Mob *monster, Dungeon *dungeon)
     //Backtrack to find the next block.
     x = player->x;
     y = player->y;
-
-    int temp_x = x;
-    int temp_y = y;
-
+    int temp_x, temp_y;
     while (previous[x][y] != FLAG ) {
         temp_x = x;
         temp_y = y;
-        x = get_x(previous[x][y]);
-        y = get_y(previous[x][y]);
+        x = get_x(previous[temp_x][temp_y]);
+        y = get_y(previous[temp_x][temp_y]);
     }
 
-    mobMove(monster, dungeon, temp_x, temp_y);
+    // free unneeded memory
+    free(queue);
+    for (i = 0; i < w; ++i)
+        free(previous[i]);
+    free(previous);
+
+    // move the monster one space
+    mob_move(monster, dungeon, temp_x, temp_y);
 }
 
 //Adds x to the queue.
-static void enqueue(int x) 
+static void enqueue(int x)
 {
     queue[head++] = x;
 }
