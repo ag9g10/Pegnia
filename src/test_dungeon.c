@@ -17,6 +17,7 @@ int main()
     player = (Character*) malloc (sizeof (Character));
     player->x = 11;
     player->y = 7;
+    player->health = 10;
 
     signal(SIGINT, finish);
 
@@ -44,7 +45,7 @@ int main()
     mvaddch(monster->y, monster->x, 'M');
     mvaddch(player->y, player->x, '@');
 
-    for (;;) {
+    while (player->health > 0) {
 
         int c = getch();
         clear();
@@ -53,6 +54,8 @@ int main()
         next_move(monster, dungeon);
     }
 
+    mvaddstr(30, 20, "You have died. You moron.");
+    getch();
     finish(0);
 
     return 0;

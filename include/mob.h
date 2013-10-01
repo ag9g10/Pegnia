@@ -15,8 +15,8 @@ typedef struct MobStruct {
     Character *player;
 } Mob;
 
-void mobMove(Mob *monster, Dungeon *dungeon, int x, int y);
-void mobAttack(Mob *monster, Dungeon *dungeon); //Add damage capability.
+void mob_move(Mob *monster, Dungeon *dungeon, int x, int y);
+void mob_attack(Mob *monster, Dungeon *dungeon); //Add damage capability.
 
 void next_move(Mob *monster, Dungeon *dungeon);
 

@@ -7,11 +7,14 @@ static void enqueue(int pair);
 static int dequeue();
 static int is_empty();
 
+static int calc_damage(Mob *monster);
+static int is_adjacent_player(Mob *monster);
+static int is_adjacent_mob();
+
 static int make_pair(int x, int y);
 static int get_x(int pair);
 static int get_y(int pair);
 
-// we don't want the compiler optimising these out
 int *queue;
 int head;
 int tail;
@@ -25,6 +28,18 @@ void mob_move(Mob *monster, Dungeon *dungeon, int x, int y)
     mvaddch(y, x, monster->symbol);
 }
 
+//Attacks the player
+void mob_attack(Mob *monster, Dungeon *dungeon)
+{
+    monster->player->health -= calc_damage(monster);
+}
+
+//Random damage calculator - Pending random damage.
+static int calc_damage(Mob *monster)
+{
+    return 1;
+}
+
 //Move the mob a step.
 void next_move(Mob *monster, Dungeon *dungeon)
 {
@@ -34,6 +49,12 @@ void next_move(Mob *monster, Dungeon *dungeon)
 
     Character *player = monster->player;
 
+    if (is_adjacent_player(monster)) {
+        mob_attack(monster, dungeon);
+        mob_move(monster, dungeon, monster->x, monster->y);
+        return;
+    }
+        
     //An array to store the move history.
     int **previous;
     previous = (int **) malloc(w*sizeof(int *));
@@ -97,7 +118,6 @@ void next_move(Mob *monster, Dungeon *dungeon)
         free(previous[i]);
     free(previous);
 
-    // move the monster one space
     mob_move(monster, dungeon, temp_x, temp_y);
 }
 
@@ -133,4 +153,26 @@ static int get_x(int pair)
 static int get_y(int pair)
 {
     return (pair >> 10) & 1023;
+}
+
+//Check if a player is adjacent.
+//An adjacent player (4 directions) will have a distance difference of 1.
+static int is_adjacent_player(Mob *monster)
+{
+    Character *player = monster->player;
+    int i;
+    for (i = 0; i < 4; ++i) {
+        int nx = monster->x + dx[i];
+        int ny = monster->y + dy[i];
+
+        if ((player->x == nx) && (player->y == ny))
+           return 1;
+    }
+    return 0;
+}
+
+//Check if a mob is adjacent. - Pending
+static int is_adjacent_mob() 
+{
+    return 1;
 }
